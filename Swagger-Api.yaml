@@ -1,0 +1,355 @@
+openapi: 3.0.3
+info:
+  title: API de SMACH  
+  description: |-
+    Api de sistema Smach da Mach1
+  version: 1.0.0
+tags:
+  - name: produto
+    description: Tudo sobre produto
+  - name: pedido
+    description: Tudo sobre pedido
+paths:
+  /produto:
+    post:
+      tags:
+        - produto
+      summary: Adiciona um novo produto
+      description: Adiciona um novo produto
+      operationId: addProduto
+      requestBody:
+        description: Cria um produto na base de dados
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Produto'
+        required: true
+      responses:
+        '200':
+          description: Operação com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+        '405':
+          description: Campos do produto inválido
+        '500':
+          description: Erro inesperado no servidor
+  /produto{idProduto}/atualizar:
+    post:
+      tags:
+        - produto
+      summary: Atualiza um já cadastrado
+      description: Atualiza um já cadastrado
+      operationId: updateProduto
+      parameters:
+        - name: idProduto
+          in: path
+          description: ID do produto que será alterado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Alterar um produto na base de dados
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Produto'
+        required: true
+      responses:
+        '200':
+          description: Operação com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+        '404':
+          description: Produto não encontrado
+        '405':
+          description: Campos do produto inválido
+        '500':
+          description: Erro inesperado no servidor
+  /produto/{idProduto}/deletar:
+    post:
+      tags:
+        - produto
+      summary: Deleta um  produto
+      description: Deleta um produto
+      operationId: deleteProduto
+      parameters:
+        - name: idProduto
+          in: path
+          description: ID do produto que será deletado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operação com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+        '404':
+          description: Produto não encontrado
+        '405':
+          description: Campos do produto inválido
+        '500':
+          description: Erro inesperado no servidor
+  /produto/{idProduto}:
+    get:
+      tags:
+        - produto
+      summary: Buscar produto por id
+      description: Retorna multiplos produtos 
+      operationId: findProductById
+      parameters:
+        - name: idProduto
+          in: path
+          description: ID do produto que será retornado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operação com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'  
+        '404':
+          description: Produto não encontrado
+        '405':
+          description: Campos do produto inválido
+        '500':
+          description: Erro inesperado no servidor
+  /produto/todos:
+    get:
+      tags:
+        - produto
+      summary: Buscar todos os produtos cadastrados
+      description: Retorna multiplos produtos 
+      operationId: findAllProducts
+     
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'
+        '500':
+          description: Erro inesperado no servidor
+  /pedido:
+    post:
+      tags:
+        - pedido
+      summary: Criar um novo pedido
+      description: Adiciona um novo pedido
+      operationId: addPedido
+      requestBody:
+        description: Cria um pedido na base de dados
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedidoNovo'
+        required: true
+      responses:
+        '200':
+          description: Operação com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido' 
+        '405':
+          description: Campos do pedido inválido
+        '500':
+          description: Erro inesperado no servidor
+  /pedido/{idPedido}/deletar:
+    post:
+      tags:
+        - pedido
+      summary: Deletar o pedido 
+      description: Deletar o pedido
+      operationId: deletaPedido
+      parameters:
+        - name: idPedido
+          in: path
+          description: ID do pedido a ser deletado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Sucesso na exclusão do pedido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+        '404':
+          description: Pedido não encontrado
+        '405':
+          description: Campos do pedido inválido
+        '500':
+          description: Erro inesperado no servidor
+  /pedido/{idPedido}/mudar-status:
+    post:
+      tags:
+        - pedido
+      summary: Alterar o status do pedido
+      description: Alterar o status do pedido
+      operationId: mudarStatusPedido
+      parameters:
+        - name: idPedido
+          in: path
+          description: ID do pedido a ser cancelado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Alterar o status do pedido
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: Order Status
+                  example: Pronto
+                  enum:
+                    - Recebido
+                    - Pronto
+                    - Entregue
+        required: true
+      responses:
+        '200':
+          description: Operação com sucesso
+        '404':
+          description: Pedido não encontrado
+        '405':
+          description: Campos do pedido inválido
+        '500':
+          description: Erro inesperado no servidor
+  /pedido/todos:
+    get:
+      tags:
+        - pedido
+      summary: Buscar todos os pedidos
+      description: Retorna multiplos produtos 
+      operationId: findAllPedidos
+     
+      responses:
+        '200':
+          description: Operação com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+        '400':
+          description: Produto inválido
+  
+components:
+  schemas:
+    ProdutoPedido:
+      type: object
+      properties:
+        idProduto:
+          type: integer
+          format: int64
+          example: 10
+        nome:
+          type: string
+          example: Pizza
+        quatidade:
+          type: integer
+          format: int32
+          example: 7
+        valor:
+          type: number
+          example: 200.5
+    PedidoNovo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        tipo:
+          type: string
+          description: Tipos do Pedido
+          example: delivery
+          enum:
+            - delivery
+            - salao
+        produtos:
+          type: array
+          items:
+            type: object
+            properties:
+              idProduto:
+                type: integer
+                format: int64
+                example: 10
+              quatidade:
+                type: integer
+                format: int32
+                example: 7
+    Pedido:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        tipo:
+          type: string
+          description: Tipos do Pedido
+          example: delivery
+          enum:
+            - delivery
+            - salao
+        total:
+          type: number
+          description: Valor total do pedido
+          example: 200.5
+        status:
+          type: string
+          description: Order Status
+          example: Recebido
+          enum:
+            - Recebido
+            - Pronto
+            - Entregue
+        produtos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProdutoPedido'
+    Produto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        nome:
+          type: string
+          example: Pizza
+        preco:
+          type: number
+          example: 10.5
+  
