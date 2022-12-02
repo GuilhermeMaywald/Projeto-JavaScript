@@ -69,8 +69,10 @@ let valueProductName = inputProductName.value;
 let valueProductPrice = inputProductPrice.value;
 
 let addProduct = {}
+let productList = {}
 
 const tableProduct = document.querySelector('.productTable');
+
 
 function changeTable() {
     sectionOrder.style.display = 'none';
@@ -97,7 +99,7 @@ const showProducts = () => {
                     </button>
                 </td>
                 <td>
-                    <button id="btn-trash">
+                    <button id="btn-trash" onClick="deleteProduct()">
                         <img src="/assets/images/trash.svg" alt="">
                     </button>
                 </td>
@@ -137,27 +139,17 @@ const productRegistration = () => {
 
 
 const searchProductUpdate = () => {
-    let product = {
-        id: valueInputCode,
-        nome: valueProductName,
-        preco: valueProductPrice
-    }
-    let trTds = '';
 
-    fetch(`${url}/produto/${product.id}/atualizar`).then(response => {
-        return response.json()
+    fetch(`${url}/produto/${inputCode.value}/atualizar`, {
+        method: "GET", 
+        headers: { "Content-type": "aplication/json" }
+    })
+        .then(response => {
+            response.json()
     }).then(response => {
-
-        const produtos = [...response]
-        produtos.forEach(product => {
-            trTds +=
-                `<tr>
-                    <td>${product.id}</td>
-                    <td>${product.nome}</td>
-                    <td>${product.preco}</td>
-                </tr>`;
+        produtos.forEach(productForm => {
+            
         })
-        tBodyProductTable.innerHTML = trTds;
     })
 }
 
@@ -165,6 +157,10 @@ function btnCancel() {
     inputCode.value = '';
     inputProductName.value = '';
     inputProductPrice.value = '';
+}
+
+const deleteProduct = () => {
+    
 }
 
 
