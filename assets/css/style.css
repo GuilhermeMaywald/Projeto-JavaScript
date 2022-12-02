@@ -162,18 +162,28 @@ main {
     line-height: 22px;
     margin-left: 69px;
     margin-top: 60px;
+    gap: 1rem;
 }
 
 .menu-orders,
 .menu-products {
     padding: 16px 24px;
-    font-size: 18px;
+    font-size: 20px;
     color: var(--color-neutral);
 }
 
 .menu-orders:hover,
 .menu-products:hover {
     color: var(--color-primary);
+}
+
+.menu-orders,
+.menu-products {
+    gap: 1rem;
+    color: var(--color-primary);
+    background-color: transparent;
+    border: 1px solid var(--color-primary);
+    transition: 0.3s;
 }
 
 .aside .informational-data {
