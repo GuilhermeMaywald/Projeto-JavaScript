@@ -145,7 +145,7 @@ const searchProductToUpdate = (id) => {
         headers: { "Content-type": "aplication/json" }
     }).then((response) => response.json())
         .then(produtos => {
-            console.log(produtos)
+
             produtos.forEach(produto => {
                 inputCode.value = produto.id;
                 inputProductName.value = produto.nome;
