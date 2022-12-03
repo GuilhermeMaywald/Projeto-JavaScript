@@ -160,7 +160,31 @@ const searchProductToUpdate = (id) => {
         })
 }
 
+const productUpdate = () => {
+    let valueInputCode = inputCode.value;
+    let valueProductName = inputProductName.value;
+    let valueProductPrice = inputProductPrice.value;
+    let product = {
+        id: valueInputCode,
+        nome: valueProductName,
+        preco: valueProductPrice
+    }
 
+    const init = {
+        method: "POST",
+        body: JSON.stringify(product),
+        headers: { "content-type": "application/json" }
+    };
+    fetch(`${url}/produto/${product.id}/atualizar`, init).then((response) => {
+        if (response.ok) {
+            alert("Produto atualizado com sucesso")
+        } else if (valueInputCode === '' || valueProductName === '' || valueProductPrice === '') {
+            return alert('Preencher todos os campos')
+        }
+        document.getElementById("productForm").reset();
+        showProducts()
+    })
+}
 
 function btnCancel() {
     inputCode.value = '';
@@ -179,4 +203,4 @@ btnSaveProducts.addEventListener('click', productRegistration);
 btnProductsRegistration.addEventListener('click', showProducts);
 btnProductsRegistration.addEventListener('click', changeTable);
 btnCancelTable.addEventListener('click', btnCancel);
-btnUpdateProduct.addEventListener('click', changeButtonSaveUpdate);
+btnUpdateProduct.addEventListener('click', productUpdate);
