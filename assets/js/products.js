@@ -52,8 +52,9 @@
 // ];
 
 const btnProductsRegistration = document.querySelector('.menu-products');
-const btnSaveProducts = document.querySelector('#btn-addProductTable');
+const btnSaveProducts = document.querySelector('#btnAddProductTable');
 const btnCancelTable = document.querySelector('#btn-cancelTable');
+const btnUpdateProduct = document.querySelector('#btn-productUpdate');
 
 const btnEdit = document.getElementById('btn-edit');
 const btnTrash = document.getElementById('btn-trash');
@@ -79,6 +80,11 @@ function changeTable() {
     tableProduct.style.display = 'flex';
 }
 
+function changeButtonSaveUpdate() {
+    btnAddProductTable.style.display = 'none';
+    btnUpdateProduct.style.display = 'flex';
+}
+
 const showProducts = () => {
     let trTds = '';
 
@@ -94,7 +100,8 @@ const showProducts = () => {
                     <td>${productList.nome}</td>
                     <td>${productList.preco}</td>
                     <td>
-                    <button id="btn-edit" onClick="searchProductToUpdate('${productList.id}')">
+                    <button id="btn-edit" onClick="searchProductToUpdate('${productList.id}'); 
+                    changeButtonSaveUpdate()">
                         <img src="/assets/images/edit.svg" alt="">
                     </button>
                 </td>
@@ -137,7 +144,6 @@ const productRegistration = () => {
     })
 }
 
-
 const searchProductToUpdate = (id) => {
 
     fetch(`${url}/produto/${id}`, {
@@ -153,6 +159,8 @@ const searchProductToUpdate = (id) => {
             })
         })
 }
+
+
 
 function btnCancel() {
     inputCode.value = '';
@@ -171,3 +179,4 @@ btnSaveProducts.addEventListener('click', productRegistration);
 btnProductsRegistration.addEventListener('click', showProducts);
 btnProductsRegistration.addEventListener('click', changeTable);
 btnCancelTable.addEventListener('click', btnCancel);
+btnUpdateProduct.addEventListener('click', changeButtonSaveUpdate);

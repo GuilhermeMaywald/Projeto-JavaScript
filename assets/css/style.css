@@ -649,8 +649,20 @@ form .search-product input {
     width: 100%;
 }
 
-.button-addProduct, .button-addProductTable{
+.button-addProduct,
+.button-addProductTable {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    margin-left: auto;
+    transition: 0.3s;
+}
+
+.update-product {
+    display: none;
     align-items: center;
     justify-content: center;
     gap: 16px;
