@@ -94,7 +94,7 @@ const showProducts = () => {
                     <td>${productList.nome}</td>
                     <td>${productList.preco}</td>
                     <td>
-                    <button id="btn-edit" onClick="searchProductUpdate()">
+                    <button id="btn-edit" onClick="searchProductToUpdate('${productList.id}')">
                         <img src="/assets/images/edit.svg" alt="">
                     </button>
                 </td>
@@ -138,19 +138,20 @@ const productRegistration = () => {
 }
 
 
-const searchProductUpdate = () => {
+const searchProductToUpdate = (id) => {
 
-    fetch(`${url}/produto/${inputCode.value}/atualizar`, {
-        method: "GET", 
+    fetch(`${url}/produto/${id}`, {
+        method: "GET",
         headers: { "Content-type": "aplication/json" }
-    })
-        .then(response => {
-            response.json()
-    }).then(response => {
-        produtos.forEach(productForm => {
-            
+    }).then((response) => response.json())
+        .then(produtos => {
+            console.log(produtos)
+            produtos.forEach(produto => {
+                inputCode.value = produto.id;
+                inputProductName.value = produto.nome;
+                inputProductPrice.value = produto.preco;
+            })
         })
-    })
 }
 
 function btnCancel() {
@@ -160,7 +161,7 @@ function btnCancel() {
 }
 
 const deleteProduct = () => {
-    
+
 }
 
 
