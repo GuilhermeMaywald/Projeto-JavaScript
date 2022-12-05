@@ -85,6 +85,12 @@ function changeButtonSaveUpdate() {
     btnUpdateProduct.style.display = 'flex';
 }
 
+function changeButtonUpdate() {
+    btnUpdateProduct.style.display = 'none';
+    btnAddProductTable.style.display = 'flex';
+    
+}
+
 const showProducts = () => {
     let trTds = '';
 
@@ -106,7 +112,7 @@ const showProducts = () => {
                     </button>
                 </td>
                 <td>
-                    <button id="btn-trash" onClick="deleteProduct()">
+                    <button id="btn-trash" onClick="productDelete('${productList.id}')">
                         <img src="/assets/images/trash.svg" alt="">
                     </button>
                 </td>
@@ -183,6 +189,31 @@ const productUpdate = () => {
         }
         document.getElementById("productForm").reset();
         showProducts()
+        changeButtonUpdate()
+    })
+}
+
+const productDelete = (id) => {
+    let valueInputCode = inputCode.value;
+    let valueProductName = inputProductName.value;
+    let valueProductPrice = inputProductPrice.value;
+    let product = {
+        id: valueInputCode,
+        nome: valueProductName,
+        preco: valueProductPrice
+    }
+
+    const init = {
+        method: "POST",
+        body: JSON.stringify(product),
+        headers: { "content-type": "application/json" }
+    };
+    fetch(`${url}/produto/${id}/deletar`, init).then((response) => {
+        if (response.ok) {
+            alert("Produto deletado com sucesso")
+        } 
+
+        showProducts()
     })
 }
 
@@ -192,9 +223,6 @@ function btnCancel() {
     inputProductPrice.value = '';
 }
 
-const deleteProduct = () => {
-
-}
 
 
 
