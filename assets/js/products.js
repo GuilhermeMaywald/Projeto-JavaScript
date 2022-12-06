@@ -1,5 +1,5 @@
 
-
+const btnShowProductTable = document.querySelector('.menu-products');
 const btnProductsRegistration = document.querySelector('.menu-products');
 const btnSaveProducts = document.querySelector('#btnAddProductTable');
 const btnCancelTable = document.querySelector('#btn-cancelTable');
@@ -22,7 +22,6 @@ let addProduct = {}
 let productList = {}
 
 const tableProduct = document.querySelector('.productTable');
-
 
 function changeTable() {
     sectionOrder.style.display = 'none';
@@ -159,13 +158,13 @@ const productDelete = (id) => {
     };
     fetch(`${url}/produto/${id}/deletar`, init).then((response) => {
         if (modal == true) {
-            response.ok 
+            response.ok
             alert("Produto deletado com sucesso")
-            
+
         } else {
             return false
         }
-         
+
 
         showProducts()
     })
@@ -180,6 +179,6 @@ function btnCancel() {
 
 btnSaveProducts.addEventListener('click', productRegistration);
 btnProductsRegistration.addEventListener('click', showProducts);
-btnProductsRegistration.addEventListener('click', changeTable);
+btnShowProductTable.addEventListener('click', changeTable);
 btnCancelTable.addEventListener('click', btnCancel);
 btnUpdateProduct.addEventListener('click', productUpdate);
