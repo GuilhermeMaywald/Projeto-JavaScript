@@ -37,7 +37,6 @@ function changeButtonSaveUpdate() {
 function changeButtonUpdate() {
     btnUpdateProduct.style.display = 'none';
     btnAddProductTable.style.display = 'flex';
-    
 }
 
 const showProducts = () => {
@@ -160,9 +159,9 @@ const productDelete = (id) => {
     };
     fetch(`${url}/produto/${id}/deletar`, init).then((response) => {
         if (modal == true) {
-            if (response.ok) {
-                return alert("Produto deletado com sucesso")
-            }
+            response.ok 
+            alert("Produto deletado com sucesso")
+            
         } else {
             return false
         }
@@ -177,8 +176,6 @@ function btnCancel() {
     inputProductName.value = '';
     inputProductPrice.value = '';
 }
-
-
 
 
 btnSaveProducts.addEventListener('click', productRegistration);
