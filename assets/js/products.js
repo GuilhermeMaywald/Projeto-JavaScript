@@ -151,6 +151,7 @@ const productDelete = (id) => {
         nome: valueProductName,
         preco: valueProductPrice
     }
+    let modal = confirm("Deseja excluir o produto?")
 
     const init = {
         method: "POST",
@@ -158,9 +159,14 @@ const productDelete = (id) => {
         headers: { "content-type": "application/json" }
     };
     fetch(`${url}/produto/${id}/deletar`, init).then((response) => {
-        if (response.ok) {
-            alert("Produto deletado com sucesso")
-        } 
+        if (modal == true) {
+            if (response.ok) {
+                return alert("Produto deletado com sucesso")
+            }
+        } else {
+            return false
+        }
+         
 
         showProducts()
     })
@@ -176,7 +182,6 @@ function btnCancel() {
 
 
 btnSaveProducts.addEventListener('click', productRegistration);
-
 btnProductsRegistration.addEventListener('click', showProducts);
 btnProductsRegistration.addEventListener('click', changeTable);
 btnCancelTable.addEventListener('click', btnCancel);
