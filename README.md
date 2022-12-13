@@ -34,6 +34,9 @@ e por seu status (recebido, pronto, entregue) e realizar a interação da atuali
 - [x] Alteração do status dos pedidos.
 - [x] Filtro dos pedidos pelo tipo e status.
 - [x] Impressão dos pedidos.
+- [x] Inserir produtos.
+- [x] Editar produtos.
+- [x] Excluir produtos.
 
 ---
 
